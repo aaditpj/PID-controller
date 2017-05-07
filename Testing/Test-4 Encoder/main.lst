@@ -1,0 +1,141 @@
+   1               		.file	"main.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               	.global	main
+  18               	main:
+  19               	.LFB6:
+  20               	.LM1:
+  21               	/* prologue: function */
+  22               	/* frame size = 0 */
+  23               	.LM2:
+  24 0000 219A      		sbi 36-32,1
+  25               	.LM3:
+  26 0002 8FEF      		ldi r24,lo8(-1)
+  27 0004 84B9      		out 36-32,r24
+  28               	.LBB4:
+  29               	.LBB5:
+  30               	.LM4:
+  31 0006 E89A      		sbi 61-32,0
+  32               	.LM5:
+  33 0008 9091 6900 		lds r25,105
+  34 000c 9360      		ori r25,lo8(3)
+  35 000e 9093 6900 		sts 105,r25
+  36               	.LM6:
+  37 0012 1092 0000 		sts encoderValue,__zero_reg__
+  38 0016 1092 0000 		sts (encoderValue)+1,__zero_reg__
+  39 001a 1092 0000 		sts (encoderValue)+2,__zero_reg__
+  40 001e 1092 0000 		sts (encoderValue)+3,__zero_reg__
+  41               	.LBE5:
+  42               	.LBE4:
+  43               	.LM7:
+  44 0022 8BB9      		out 43-32,r24
+  45               	.LM8:
+  46               	/* #APP */
+  47               	 ;  30 "main.c" 1
+  48 0024 7894      		sei
+  49               	 ;  0 "" 2
+  50               	.LM9:
+  51               	/* #NOAPP */
+  52 0026 85B9      		out 37-32,r24
+  53               	.L5:
+  54               	.LM10:
+  55 0028 8091 0000 		lds r24,encoderValue
+  56 002c 9091 0000 		lds r25,(encoderValue)+1
+  57 0030 A091 0000 		lds r26,(encoderValue)+2
+  58 0034 B091 0000 		lds r27,(encoderValue)+3
+  59 0038 4597      		sbiw r24,21
+  60 003a A105      		cpc r26,__zero_reg__
+  61 003c B105      		cpc r27,__zero_reg__
+  62 003e 04F4      		brge .L2
+  63               	.LM11:
+  64 0040 299A      		sbi 37-32,1
+  65 0042 00C0      		rjmp .L5
+  66               	.L2:
+  67               	.LM12:
+  68 0044 15B8      		out 37-32,__zero_reg__
+  69 0046 00C0      		rjmp .L5
+  70               	.LFE6:
+  72               	.global	encoder_Init
+  74               	encoder_Init:
+  75               	.LFB7:
+  76               	.LM13:
+  77               	/* prologue: function */
+  78               	/* frame size = 0 */
+  79               	.LM14:
+  80 0048 E89A      		sbi 61-32,0
+  81               	.LM15:
+  82 004a E9E6      		ldi r30,lo8(105)
+  83 004c F0E0      		ldi r31,hi8(105)
+  84 004e 8081      		ld r24,Z
+  85 0050 8360      		ori r24,lo8(3)
+  86 0052 8083      		st Z,r24
+  87               	.LM16:
+  88 0054 1092 0000 		sts encoderValue,__zero_reg__
+  89 0058 1092 0000 		sts (encoderValue)+1,__zero_reg__
+  90 005c 1092 0000 		sts (encoderValue)+2,__zero_reg__
+  91 0060 1092 0000 		sts (encoderValue)+3,__zero_reg__
+  92               	/* epilogue start */
+  93               	.LM17:
+  94 0064 0895      		ret
+  95               	.LFE7:
+  97               	.global	__vector_1
+  99               	__vector_1:
+ 100               	.LFB8:
+ 101               	.LM18:
+ 102 0066 1F92      		push __zero_reg__
+ 103 0068 0F92      		push r0
+ 104 006a 0FB6      		in r0,__SREG__
+ 105 006c 0F92      		push r0
+ 106 006e 1124      		clr __zero_reg__
+ 107 0070 8F93      		push r24
+ 108 0072 9F93      		push r25
+ 109 0074 AF93      		push r26
+ 110 0076 BF93      		push r27
+ 111               	/* prologue: Signal */
+ 112               	/* frame size = 0 */
+ 113               	.LM19:
+ 114 0078 8091 0000 		lds r24,encoderValue
+ 115 007c 9091 0000 		lds r25,(encoderValue)+1
+ 116 0080 A091 0000 		lds r26,(encoderValue)+2
+ 117 0084 B091 0000 		lds r27,(encoderValue)+3
+ 118 0088 0196      		adiw r24,1
+ 119 008a A11D      		adc r26,__zero_reg__
+ 120 008c B11D      		adc r27,__zero_reg__
+ 121 008e 8093 0000 		sts encoderValue,r24
+ 122 0092 9093 0000 		sts (encoderValue)+1,r25
+ 123 0096 A093 0000 		sts (encoderValue)+2,r26
+ 124 009a B093 0000 		sts (encoderValue)+3,r27
+ 125               	/* epilogue start */
+ 126               	.LM20:
+ 127 009e BF91      		pop r27
+ 128 00a0 AF91      		pop r26
+ 129 00a2 9F91      		pop r25
+ 130 00a4 8F91      		pop r24
+ 131 00a6 0F90      		pop r0
+ 132 00a8 0FBE      		out __SREG__,r0
+ 133 00aa 0F90      		pop r0
+ 134 00ac 1F90      		pop __zero_reg__
+ 135 00ae 1895      		reti
+ 136               	.LFE8:
+ 138               		.comm encoderValue,4,1
+ 179               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+C:\Users\AADITJ~1\AppData\Local\Temp/ccO6Rvxb.s:2      *ABS*:0000003f __SREG__
+C:\Users\AADITJ~1\AppData\Local\Temp/ccO6Rvxb.s:3      *ABS*:0000003e __SP_H__
+C:\Users\AADITJ~1\AppData\Local\Temp/ccO6Rvxb.s:4      *ABS*:0000003d __SP_L__
+C:\Users\AADITJ~1\AppData\Local\Temp/ccO6Rvxb.s:5      *ABS*:00000034 __CCP__
+C:\Users\AADITJ~1\AppData\Local\Temp/ccO6Rvxb.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\AADITJ~1\AppData\Local\Temp/ccO6Rvxb.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\AADITJ~1\AppData\Local\Temp/ccO6Rvxb.s:18     .text:00000000 main
+                            *COM*:00000004 encoderValue
+C:\Users\AADITJ~1\AppData\Local\Temp/ccO6Rvxb.s:74     .text:00000048 encoder_Init
+C:\Users\AADITJ~1\AppData\Local\Temp/ccO6Rvxb.s:99     .text:00000066 __vector_1
+
+UNDEFINED SYMBOLS
+__do_clear_bss

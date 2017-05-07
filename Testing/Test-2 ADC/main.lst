@@ -1,0 +1,151 @@
+   1               		.file	"main.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               	.global	ReadADC
+  18               	ReadADC:
+  19               	.LFB2:
+  20               	.LM1:
+  21               	/* prologue: function */
+  22               	/* frame size = 0 */
+  23               	.LM2:
+  24 0000 8091 7A00 		lds r24,122
+  25 0004 8064      		ori r24,lo8(64)
+  26 0006 8093 7A00 		sts 122,r24
+  27               	.L2:
+  28               	.LM3:
+  29 000a 8091 7A00 		lds r24,122
+  30 000e 84FF      		sbrs r24,4
+  31 0010 00C0      		rjmp .L2
+  32               	.LM4:
+  33 0012 8091 7A00 		lds r24,122
+  34 0016 8061      		ori r24,lo8(16)
+  35 0018 8093 7A00 		sts 122,r24
+  36               	.LM5:
+  37 001c 2091 7800 		lds r18,120
+  38 0020 3091 7900 		lds r19,(120)+1
+  39               	.LM6:
+  40 0024 C901      		movw r24,r18
+  41               	/* epilogue start */
+  42 0026 0895      		ret
+  43               	.LFE2:
+  45               	.global	main
+  47               	main:
+  48               	.LFB3:
+  49               	.LM7:
+  50               	/* prologue: function */
+  51               	/* frame size = 0 */
+  52               	.LM8:
+  53 0028 8091 7C00 		lds r24,124
+  54 002c 8064      		ori r24,lo8(64)
+  55 002e 8093 7C00 		sts 124,r24
+  56               	.LM9:
+  57 0032 8091 7A00 		lds r24,122
+  58 0036 8768      		ori r24,lo8(-121)
+  59 0038 8093 7A00 		sts 122,r24
+  60               	.LM10:
+  61 003c 84B1      		in r24,36-32
+  62 003e 8E60      		ori r24,lo8(14)
+  63 0040 84B9      		out 36-32,r24
+  64               	.LM11:
+  65 0042 1092 8900 		sts (136)+1,__zero_reg__
+  66 0046 1092 8800 		sts 136,__zero_reg__
+  67               	.LM12:
+  68 004a 8DE7      		ldi r24,lo8(125)
+  69 004c 90E0      		ldi r25,hi8(125)
+  70 004e 9093 8B00 		sts (138)+1,r25
+  71 0052 8093 8A00 		sts 138,r24
+  72               	.LM13:
+  73 0056 8091 8000 		lds r24,128
+  74 005a 806A      		ori r24,lo8(-96)
+  75 005c 8093 8000 		sts 128,r24
+  76               	.LM14:
+  77 0060 8091 8000 		lds r24,128
+  78 0064 8360      		ori r24,lo8(3)
+  79 0066 8093 8000 		sts 128,r24
+  80               	.LM15:
+  81 006a 8091 8100 		lds r24,129
+  82 006e 8860      		ori r24,lo8(8)
+  83 0070 8093 8100 		sts 129,r24
+  84               	.LM16:
+  85 0074 8091 6F00 		lds r24,111
+  86 0078 8260      		ori r24,lo8(2)
+  87 007a 8093 6F00 		sts 111,r24
+  88               	.LM17:
+  89               	/* #APP */
+  90               	 ;  42 "main.c" 1
+  91 007e 7894      		sei
+  92               	 ;  0 "" 2
+  93               	.LM18:
+  94               	/* #NOAPP */
+  95 0080 8091 8100 		lds r24,129
+  96 0084 8160      		ori r24,lo8(1)
+  97 0086 8093 8100 		sts 129,r24
+  98               	.L6:
+  99 008a 00C0      		rjmp .L6
+ 100               	.LFE3:
+ 102               	.global	__vector_11
+ 104               	__vector_11:
+ 105               	.LFB4:
+ 106               	.LM19:
+ 107 008c 1F92      		push __zero_reg__
+ 108 008e 0F92      		push r0
+ 109 0090 0FB6      		in r0,__SREG__
+ 110 0092 0F92      		push r0
+ 111 0094 1124      		clr __zero_reg__
+ 112 0096 2F93      		push r18
+ 113 0098 3F93      		push r19
+ 114 009a 4F93      		push r20
+ 115 009c 5F93      		push r21
+ 116 009e 6F93      		push r22
+ 117 00a0 7F93      		push r23
+ 118 00a2 8F93      		push r24
+ 119 00a4 9F93      		push r25
+ 120 00a6 AF93      		push r26
+ 121 00a8 BF93      		push r27
+ 122 00aa EF93      		push r30
+ 123 00ac FF93      		push r31
+ 124               	/* prologue: Signal */
+ 125               	/* frame size = 0 */
+ 126               	.LM20:
+ 127 00ae 0E94 0000 		call ReadADC
+ 128 00b2 9093 8900 		sts (136)+1,r25
+ 129 00b6 8093 8800 		sts 136,r24
+ 130               	/* epilogue start */
+ 131               	.LM21:
+ 132 00ba FF91      		pop r31
+ 133 00bc EF91      		pop r30
+ 134 00be BF91      		pop r27
+ 135 00c0 AF91      		pop r26
+ 136 00c2 9F91      		pop r25
+ 137 00c4 8F91      		pop r24
+ 138 00c6 7F91      		pop r23
+ 139 00c8 6F91      		pop r22
+ 140 00ca 5F91      		pop r21
+ 141 00cc 4F91      		pop r20
+ 142 00ce 3F91      		pop r19
+ 143 00d0 2F91      		pop r18
+ 144 00d2 0F90      		pop r0
+ 145 00d4 0FBE      		out __SREG__,r0
+ 146 00d6 0F90      		pop r0
+ 147 00d8 1F90      		pop __zero_reg__
+ 148 00da 1895      		reti
+ 149               	.LFE4:
+ 191               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+C:\Users\AADITJ~1\AppData\Local\Temp/ccmOeOjO.s:2      *ABS*:0000003f __SREG__
+C:\Users\AADITJ~1\AppData\Local\Temp/ccmOeOjO.s:3      *ABS*:0000003e __SP_H__
+C:\Users\AADITJ~1\AppData\Local\Temp/ccmOeOjO.s:4      *ABS*:0000003d __SP_L__
+C:\Users\AADITJ~1\AppData\Local\Temp/ccmOeOjO.s:5      *ABS*:00000034 __CCP__
+C:\Users\AADITJ~1\AppData\Local\Temp/ccmOeOjO.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\AADITJ~1\AppData\Local\Temp/ccmOeOjO.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\AADITJ~1\AppData\Local\Temp/ccmOeOjO.s:18     .text:00000000 ReadADC
+C:\Users\AADITJ~1\AppData\Local\Temp/ccmOeOjO.s:47     .text:00000028 main
+C:\Users\AADITJ~1\AppData\Local\Temp/ccmOeOjO.s:104    .text:0000008c __vector_11
+
+NO UNDEFINED SYMBOLS

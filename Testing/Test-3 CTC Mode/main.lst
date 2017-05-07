@@ -1,0 +1,198 @@
+   1               		.file	"main.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               	.global	timer1_init
+  18               	timer1_init:
+  19               	.LFB2:
+  20               	.LM1:
+  21               	/* prologue: function */
+  22               	/* frame size = 0 */
+  23               	.LM2:
+  24 0000 E1E8      		ldi r30,lo8(129)
+  25 0002 F0E0      		ldi r31,hi8(129)
+  26 0004 8081      		ld r24,Z
+  27 0006 8A60      		ori r24,lo8(10)
+  28 0008 8083      		st Z,r24
+  29               	.LM3:
+  30 000a E0E8      		ldi r30,lo8(128)
+  31 000c F0E0      		ldi r31,hi8(128)
+  32 000e 8081      		ld r24,Z
+  33 0010 8064      		ori r24,lo8(64)
+  34 0012 8083      		st Z,r24
+  35               	.LM4:
+  36 0014 1092 8500 		sts (132)+1,__zero_reg__
+  37 0018 1092 8400 		sts 132,__zero_reg__
+  38               	.LM5:
+  39 001c 1092 8900 		sts (136)+1,__zero_reg__
+  40 0020 1092 8800 		sts 136,__zero_reg__
+  41               	/* epilogue start */
+  42               	.LM6:
+  43 0024 0895      		ret
+  44               	.LFE2:
+  46               	.global	ReadADC
+  48               	ReadADC:
+  49               	.LFB3:
+  50               	.LM7:
+  51               	/* prologue: function */
+  52               	/* frame size = 0 */
+  53               	.LM8:
+  54 0026 8091 7A00 		lds r24,122
+  55 002a 8064      		ori r24,lo8(64)
+  56 002c 8093 7A00 		sts 122,r24
+  57               	.L4:
+  58               	.LM9:
+  59 0030 8091 7A00 		lds r24,122
+  60 0034 84FF      		sbrs r24,4
+  61 0036 00C0      		rjmp .L4
+  62               	.LM10:
+  63 0038 8091 7A00 		lds r24,122
+  64 003c 8061      		ori r24,lo8(16)
+  65 003e 8093 7A00 		sts 122,r24
+  66               	.LM11:
+  67 0042 2091 7800 		lds r18,120
+  68 0046 3091 7900 		lds r19,(120)+1
+  69               	.LM12:
+  70 004a C901      		movw r24,r18
+  71               	/* epilogue start */
+  72 004c 0895      		ret
+  73               	.LFE3:
+  75               	.global	set_speed
+  77               	set_speed:
+  78               	.LFB4:
+  79               	.LM13:
+  80               	.LVL0:
+  81 004e EF92      		push r14
+  82 0050 FF92      		push r15
+  83 0052 0F93      		push r16
+  84 0054 1F93      		push r17
+  85               	/* prologue: function */
+  86               	/* frame size = 0 */
+  87 0056 7B01      		movw r14,r22
+  88 0058 8C01      		movw r16,r24
+  89               	.LM14:
+  90 005a 2DEC      		ldi r18,lo8(0x3dcccccd)
+  91 005c 3CEC      		ldi r19,hi8(0x3dcccccd)
+  92 005e 4CEC      		ldi r20,hlo8(0x3dcccccd)
+  93 0060 5DE3      		ldi r21,hhi8(0x3dcccccd)
+  94 0062 0E94 0000 		call __lesf2
+  95               	.LVL1:
+  96 0066 1816      		cp __zero_reg__,r24
+  97 0068 04F0      		brlt .L16
+  98               	.LM15:
+  99 006a 8091 8000 		lds r24,128
+ 100 006e 8F7B      		andi r24,lo8(-65)
+ 101 0070 8093 8000 		sts 128,r24
+ 102 0074 00C0      		rjmp .L13
+ 103               	.L16:
+ 104               	.LM16:
+ 105 0076 C801      		movw r24,r16
+ 106 0078 B701      		movw r22,r14
+ 107 007a 20E0      		ldi r18,lo8(0x44124000)
+ 108 007c 30E4      		ldi r19,hi8(0x44124000)
+ 109 007e 42E1      		ldi r20,hlo8(0x44124000)
+ 110 0080 54E4      		ldi r21,hhi8(0x44124000)
+ 111 0082 0E94 0000 		call __gesf2
+ 112 0086 8823      		tst r24
+ 113 0088 04F0      		brlt .L17
+ 114               	.LM17:
+ 115 008a 8091 8000 		lds r24,128
+ 116 008e 8064      		ori r24,lo8(64)
+ 117 0090 8093 8000 		sts 128,r24
+ 118               	.LM18:
+ 119 0094 81E0      		ldi r24,lo8(1)
+ 120 0096 90E0      		ldi r25,hi8(1)
+ 121 0098 9093 8900 		sts (136)+1,r25
+ 122 009c 8093 8800 		sts 136,r24
+ 123 00a0 00C0      		rjmp .L13
+ 124               	.L17:
+ 125               	.LM19:
+ 126 00a2 8091 8000 		lds r24,128
+ 127 00a6 8064      		ori r24,lo8(64)
+ 128 00a8 8093 8000 		sts 128,r24
+ 129               	.LM20:
+ 130 00ac 68E0      		ldi r22,lo8(0x44927c08)
+ 131 00ae 7CE7      		ldi r23,hi8(0x44927c08)
+ 132 00b0 82E9      		ldi r24,hlo8(0x44927c08)
+ 133 00b2 94E4      		ldi r25,hhi8(0x44927c08)
+ 134 00b4 A801      		movw r20,r16
+ 135 00b6 9701      		movw r18,r14
+ 136 00b8 0E94 0000 		call __divsf3
+ 137 00bc 20E0      		ldi r18,lo8(0x3f800000)
+ 138 00be 30E0      		ldi r19,hi8(0x3f800000)
+ 139 00c0 40E8      		ldi r20,hlo8(0x3f800000)
+ 140 00c2 5FE3      		ldi r21,hhi8(0x3f800000)
+ 141 00c4 0E94 0000 		call __subsf3
+ 142 00c8 0E94 0000 		call __fixunssfsi
+ 143 00cc 7093 8900 		sts (136)+1,r23
+ 144 00d0 6093 8800 		sts 136,r22
+ 145               	.L13:
+ 146               	/* epilogue start */
+ 147               	.LM21:
+ 148 00d4 1F91      		pop r17
+ 149 00d6 0F91      		pop r16
+ 150 00d8 FF90      		pop r15
+ 151 00da EF90      		pop r14
+ 152               	.LVL2:
+ 153 00dc 0895      		ret
+ 154               	.LFE4:
+ 156               	.global	main
+ 158               	main:
+ 159               	.LFB5:
+ 160               	.LM22:
+ 161               	/* prologue: function */
+ 162               	/* frame size = 0 */
+ 163               	.LM23:
+ 164 00de 219A      		sbi 36-32,1
+ 165               	.LM24:
+ 166 00e0 8091 7C00 		lds r24,124
+ 167 00e4 8064      		ori r24,lo8(64)
+ 168 00e6 8093 7C00 		sts 124,r24
+ 169               	.LM25:
+ 170 00ea 8091 7A00 		lds r24,122
+ 171 00ee 8768      		ori r24,lo8(-121)
+ 172 00f0 8093 7A00 		sts 122,r24
+ 173               	.LM26:
+ 174 00f4 0E94 0000 		call timer1_init
+ 175               	.L21:
+ 176               	.LM27:
+ 177 00f8 0E94 0000 		call ReadADC
+ 178 00fc A0E0      		ldi r26,lo8(0)
+ 179 00fe B0E0      		ldi r27,hi8(0)
+ 180 0100 BC01      		movw r22,r24
+ 181 0102 CD01      		movw r24,r26
+ 182 0104 0E94 0000 		call __floatunsisf
+ 183 0108 25E8      		ldi r18,lo8(0x3f11eb85)
+ 184 010a 3BEE      		ldi r19,hi8(0x3f11eb85)
+ 185 010c 41E1      		ldi r20,hlo8(0x3f11eb85)
+ 186 010e 5FE3      		ldi r21,hhi8(0x3f11eb85)
+ 187 0110 0E94 0000 		call __mulsf3
+ 188 0114 0E94 0000 		call set_speed
+ 189 0118 00C0      		rjmp .L21
+ 190               	.LFE5:
+ 240               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+C:\Users\AADITJ~1\AppData\Local\Temp/ccAGkYU7.s:2      *ABS*:0000003f __SREG__
+C:\Users\AADITJ~1\AppData\Local\Temp/ccAGkYU7.s:3      *ABS*:0000003e __SP_H__
+C:\Users\AADITJ~1\AppData\Local\Temp/ccAGkYU7.s:4      *ABS*:0000003d __SP_L__
+C:\Users\AADITJ~1\AppData\Local\Temp/ccAGkYU7.s:5      *ABS*:00000034 __CCP__
+C:\Users\AADITJ~1\AppData\Local\Temp/ccAGkYU7.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\AADITJ~1\AppData\Local\Temp/ccAGkYU7.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\AADITJ~1\AppData\Local\Temp/ccAGkYU7.s:18     .text:00000000 timer1_init
+C:\Users\AADITJ~1\AppData\Local\Temp/ccAGkYU7.s:48     .text:00000026 ReadADC
+C:\Users\AADITJ~1\AppData\Local\Temp/ccAGkYU7.s:77     .text:0000004e set_speed
+C:\Users\AADITJ~1\AppData\Local\Temp/ccAGkYU7.s:158    .text:000000de main
+
+UNDEFINED SYMBOLS
+__lesf2
+__gesf2
+__divsf3
+__subsf3
+__fixunssfsi
+__floatunsisf
+__mulsf3
