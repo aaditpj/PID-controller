@@ -4,54 +4,97 @@
 #include "stdint.h"
 
 volatile int32_t encoderValue;
+volatile int8_t dir;
 
 void encoder_Init(void);
 
 int main(void){
 	DDRB |= (1 << DDB1);
     // PB1 and PB2 is now an output
-
-   /* OCR1A = 0;
-
-
-    TCCR1A |= (1 << COM1A1);
-    // set none-inverting mode
-
-    TCCR1A |= (1 << WGM10)|(1<<WGM11);
-    TCCR1B |= (1 << WGM12);
-    // set Fast PWM mode using ICR1 as TOP
-	TIMSK1 |= (1 << OCIE1A);
-	sei();
-    TCCR1B |= (1 << CS10);
-    // START the timer with no prescaler*/
 	DDRB = 0xff;
 	encoder_Init();
-	PORTD = 0xff;
+	PORTD = 0x00;
 	sei(); //enabling global interrupts
 	PORTB=0xff;
 	
 	while(1){
-	if(encoderValue<=20)
+	if(encoderValue>=1440)
 	{
-	PORTB |= 1<<PINB1; // for testing only
+	PORTB |= 1<<PINB1;                    // for testing only
 	}
 	else
-	PORTB = 0x00;
+	PORTB &= ~(1<<PINB1);
 	
 }
 }
 
 
 void encoder_Init(void){
-	EIMSK |= (1<<INT0); // enabling external interrupt 0;
-	EICRA |= (1<<ISC01)|(1<<ISC00); //Interrupt set on rising edge
+	EIMSK |= (1<<INT0)|(1<<INT1); // enabling external interrupt 0
+	EICRA |= (1<<ISC10)|(1<<ISC00); //Interrupt set on logic change
 	encoderValue = 0;
 }
 
-//interrupt service routine
+//interrupt service routine for quadrature encoding
+
 ISR(INT0_vect)
 {
-	encoderValue++; //encrement encoder value on every pulse
+	if (bit_is_set(PIND,3))
+    {
+        if (bit_is_set(PIND,2))
+        {
+            dir=1;
+            encoderValue++;
+        }
+        else
+        {
+            dir=0;
+            encoderValue--;
+        }
+    }
+    else
+    {
+        if (bit_is_set(PIND,2) )
+        {
+            dir=0;
+            encoderValue--;
+        }
+        else
+        {
+            dir=1;
+            encoderValue++;
+        }
+    }
+}	
 	
+
+ISR(INT1_vect){
+
+	if (bit_is_set(PIND,3))
+    {
+        if (bit_is_set(PIND,2))
+        {
+            dir=0;
+            encoderValue--;
+        }
+        else
+        {
+            dir=1;
+            encoderValue++;
+        }
+    }
+    else
+    {
+        if (bit_is_set(PIND,2))
+        {
+            dir=1;
+            encoderValue++;
+        }
+        else
+        {
+            dir=0;
+            encoderValue--;
+        }
+    }
 	
 }

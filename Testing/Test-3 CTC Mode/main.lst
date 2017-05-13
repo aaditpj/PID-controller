@@ -8,7 +8,7 @@
   15               	.Ltext0:
   16               	.global	timer1_init
   18               	timer1_init:
-  19               	.LFB2:
+  19               	.LFB6:
   20               	.LM1:
   21               	/* prologue: function */
   22               	/* frame size = 0 */
@@ -33,10 +33,10 @@
   41               	/* epilogue start */
   42               	.LM6:
   43 0024 0895      		ret
-  44               	.LFE2:
+  44               	.LFE6:
   46               	.global	ReadADC
   48               	ReadADC:
-  49               	.LFB3:
+  49               	.LFB7:
   50               	.LM7:
   51               	/* prologue: function */
   52               	/* frame size = 0 */
@@ -60,10 +60,10 @@
   70 004a C901      		movw r24,r18
   71               	/* epilogue start */
   72 004c 0895      		ret
-  73               	.LFE3:
+  73               	.LFE7:
   75               	.global	set_speed
   77               	set_speed:
-  78               	.LFB4:
+  78               	.LFB8:
   79               	.LM13:
   80               	.LVL0:
   81 004e EF92      		push r14
@@ -139,54 +139,111 @@
  151 00da EF90      		pop r14
  152               	.LVL2:
  153 00dc 0895      		ret
- 154               	.LFE4:
+ 154               	.LFE8:
  156               	.global	main
  158               	main:
- 159               	.LFB5:
+ 159               	.LFB9:
  160               	.LM22:
- 161               	/* prologue: function */
- 162               	/* frame size = 0 */
- 163               	.LM23:
- 164 00de 219A      		sbi 36-32,1
- 165               	.LM24:
- 166 00e0 8091 7C00 		lds r24,124
- 167 00e4 8064      		ori r24,lo8(64)
- 168 00e6 8093 7C00 		sts 124,r24
- 169               	.LM25:
- 170 00ea 8091 7A00 		lds r24,122
- 171 00ee 8768      		ori r24,lo8(-121)
- 172 00f0 8093 7A00 		sts 122,r24
- 173               	.LM26:
- 174 00f4 0E94 0000 		call timer1_init
- 175               	.L21:
- 176               	.LM27:
- 177 00f8 0E94 0000 		call ReadADC
- 178 00fc A0E0      		ldi r26,lo8(0)
- 179 00fe B0E0      		ldi r27,hi8(0)
- 180 0100 BC01      		movw r22,r24
- 181 0102 CD01      		movw r24,r26
- 182 0104 0E94 0000 		call __floatunsisf
- 183 0108 25E8      		ldi r18,lo8(0x3f11eb85)
- 184 010a 3BEE      		ldi r19,hi8(0x3f11eb85)
- 185 010c 41E1      		ldi r20,hlo8(0x3f11eb85)
- 186 010e 5FE3      		ldi r21,hhi8(0x3f11eb85)
- 187 0110 0E94 0000 		call __mulsf3
- 188 0114 0E94 0000 		call set_speed
- 189 0118 00C0      		rjmp .L21
- 190               	.LFE5:
- 240               	.Letext0:
+ 161 00de 0F93      		push r16
+ 162 00e0 1F93      		push r17
+ 163 00e2 CF93      		push r28
+ 164 00e4 DF93      		push r29
+ 165               	/* prologue: function */
+ 166               	/* frame size = 0 */
+ 167               	.LM23:
+ 168 00e6 219A      		sbi 36-32,1
+ 169               	.LM24:
+ 170 00e8 8091 7C00 		lds r24,124
+ 171 00ec 8064      		ori r24,lo8(64)
+ 172 00ee 8093 7C00 		sts 124,r24
+ 173               	.LM25:
+ 174 00f2 8091 7A00 		lds r24,122
+ 175 00f6 8768      		ori r24,lo8(-121)
+ 176 00f8 8093 7A00 		sts 122,r24
+ 177               	.LM26:
+ 178 00fc 0E94 0000 		call timer1_init
+ 179               	.LM27:
+ 180 0100 60E0      		ldi r22,lo8(0x0)
+ 181 0102 70E0      		ldi r23,hi8(0x0)
+ 182 0104 80E0      		ldi r24,hlo8(0x0)
+ 183 0106 90E0      		ldi r25,hhi8(0x0)
+ 184 0108 0E94 0000 		call set_speed
+ 185 010c C0E0      		ldi r28,lo8(0)
+ 186 010e D0E0      		ldi r29,hi8(0)
+ 187               	.LVL3:
+ 188               	.LBB13:
+ 189               	.LBB14:
+ 190               	.LBB15:
+ 191               	.LBB16:
+ 192               	.LBB17:
+ 193               	.LM28:
+ 194 0110 00E2      		ldi r16,lo8(20000)
+ 195 0112 1EE4      		ldi r17,hi8(20000)
+ 196               	.L19:
+ 197               	.LBE17:
+ 198               	.LBE16:
+ 199               	.LBE15:
+ 200               	.LBE14:
+ 201               	.LM29:
+ 202 0114 BE01      		movw r22,r28
+ 203 0116 8827      		clr r24
+ 204 0118 77FD      		sbrc r23,7
+ 205 011a 8095      		com r24
+ 206 011c 982F      		mov r25,r24
+ 207               	.LVL4:
+ 208 011e 0E94 0000 		call __floatsisf
+ 209               	.LVL5:
+ 210 0122 0E94 0000 		call set_speed
+ 211               	.LBB21:
+ 212               	.LBB20:
+ 213               	.LBB19:
+ 214               	.LBB18:
+ 215               	.LM30:
+ 216 0126 C801      		movw r24,r16
+ 217               	.LVL6:
+ 218               	/* #APP */
+ 219               	 ;  105 "c:/winavr-20100110/lib/gcc/../../avr/include/util/delay_basic.h" 1
+ 220 0128 0197      		1: sbiw r24,1
+ 221 012a 01F4      		brne 1b
+ 222               	 ;  0 "" 2
+ 223               	/* #NOAPP */
+ 224               	.LBE18:
+ 225               	.LBE19:
+ 226               	.LBE20:
+ 227               	.LBE21:
+ 228               	.LM31:
+ 229 012c 2196      		adiw r28,1
+ 230               	.LVL7:
+ 231 012e 81E0      		ldi r24,hi8(391)
+ 232 0130 C738      		cpi r28,lo8(391)
+ 233 0132 D807      		cpc r29,r24
+ 234               	.LVL8:
+ 235 0134 01F4      		brne .L19
+ 236               	.LBE13:
+ 237               	.LM32:
+ 238 0136 80E0      		ldi r24,lo8(0)
+ 239 0138 90E0      		ldi r25,hi8(0)
+ 240               	/* epilogue start */
+ 241 013a DF91      		pop r29
+ 242 013c CF91      		pop r28
+ 243               	.LVL9:
+ 244 013e 1F91      		pop r17
+ 245 0140 0F91      		pop r16
+ 246 0142 0895      		ret
+ 247               	.LFE9:
+ 297               	.Letext0:
 DEFINED SYMBOLS
                             *ABS*:00000000 main.c
-C:\Users\AADITJ~1\AppData\Local\Temp/ccAGkYU7.s:2      *ABS*:0000003f __SREG__
-C:\Users\AADITJ~1\AppData\Local\Temp/ccAGkYU7.s:3      *ABS*:0000003e __SP_H__
-C:\Users\AADITJ~1\AppData\Local\Temp/ccAGkYU7.s:4      *ABS*:0000003d __SP_L__
-C:\Users\AADITJ~1\AppData\Local\Temp/ccAGkYU7.s:5      *ABS*:00000034 __CCP__
-C:\Users\AADITJ~1\AppData\Local\Temp/ccAGkYU7.s:6      *ABS*:00000000 __tmp_reg__
-C:\Users\AADITJ~1\AppData\Local\Temp/ccAGkYU7.s:7      *ABS*:00000001 __zero_reg__
-C:\Users\AADITJ~1\AppData\Local\Temp/ccAGkYU7.s:18     .text:00000000 timer1_init
-C:\Users\AADITJ~1\AppData\Local\Temp/ccAGkYU7.s:48     .text:00000026 ReadADC
-C:\Users\AADITJ~1\AppData\Local\Temp/ccAGkYU7.s:77     .text:0000004e set_speed
-C:\Users\AADITJ~1\AppData\Local\Temp/ccAGkYU7.s:158    .text:000000de main
+C:\Users\AADITJ~1\AppData\Local\Temp/cc9Sckwg.s:2      *ABS*:0000003f __SREG__
+C:\Users\AADITJ~1\AppData\Local\Temp/cc9Sckwg.s:3      *ABS*:0000003e __SP_H__
+C:\Users\AADITJ~1\AppData\Local\Temp/cc9Sckwg.s:4      *ABS*:0000003d __SP_L__
+C:\Users\AADITJ~1\AppData\Local\Temp/cc9Sckwg.s:5      *ABS*:00000034 __CCP__
+C:\Users\AADITJ~1\AppData\Local\Temp/cc9Sckwg.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\AADITJ~1\AppData\Local\Temp/cc9Sckwg.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\AADITJ~1\AppData\Local\Temp/cc9Sckwg.s:18     .text:00000000 timer1_init
+C:\Users\AADITJ~1\AppData\Local\Temp/cc9Sckwg.s:48     .text:00000026 ReadADC
+C:\Users\AADITJ~1\AppData\Local\Temp/cc9Sckwg.s:77     .text:0000004e set_speed
+C:\Users\AADITJ~1\AppData\Local\Temp/cc9Sckwg.s:158    .text:000000de main
 
 UNDEFINED SYMBOLS
 __lesf2
@@ -194,5 +251,4 @@ __gesf2
 __divsf3
 __subsf3
 __fixunssfsi
-__floatunsisf
-__mulsf3
+__floatsisf

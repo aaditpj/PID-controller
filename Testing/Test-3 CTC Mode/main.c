@@ -1,5 +1,6 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include <util/delay.h>
 
   
 // initialize timer, interrupt and variable
@@ -59,18 +60,19 @@ else
 int main(void)
 {
     DDRB |= (1<<PINB1);
-    // initialize timer
 	ADMUX |= (1<<REFS0);
 	ADCSRA |= (1<<ADEN)|(1<<ADPS2)|(1<<ADPS1)|(1<<ADPS0); 
 	
 	
     timer1_init();
 	
-	set_speed((float)(ReadADC()*0.57)); 
+	set_speed((float)(0)); 
   
-    // loop forever
-    while(1)
-    {
-		set_speed((float)(ReadADC()*0.57)); 
-    }
+
+		for(int i=0; i<=390; i++)
+		{
+			set_speed((float)(i)); 
+			_delay_ms(10);
+		}
+ 
 }
